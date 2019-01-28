@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../global_config.dart';
 import '../home/search_page.dart';
 import '../global_config.dart';
+import './components/edit.dart';
 
 class MyPage extends StatefulWidget {
 
@@ -53,7 +54,7 @@ class _MyPageState extends State<MyPage> {
                 borderRadius: new BorderRadius.all(new Radius.circular(6.0))
             ),
             child: new FlatButton(
-                onPressed: (){},
+                onPressed: edit,
                 child: new Container(
                   child: new ListTile(
                     leading: new Container(
@@ -987,4 +988,10 @@ class _MyPageState extends State<MyPage> {
     );
   }
 
+  void edit(){
+    Navigator.push(
+      context,
+      new MaterialPageRoute(builder: (context) => new EditPage(todos)),
+    );
+  }
 }

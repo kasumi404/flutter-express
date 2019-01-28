@@ -85,7 +85,7 @@ class _LoginState extends State<Login> {
     var url = "http://192.168.1.105:8080/admin/login?username="+username+"&password="+password;
     print(url);
     var httpClient = new HttpClient();
-    var request = await httpClient.getUrl(Uri.parse(url));
+    var request = await httpClient.postUrl(Uri.parse(url));
 
     var response = await request.close();
     //判断是否请求成功
@@ -95,16 +95,18 @@ class _LoginState extends State<Login> {
       //解析json，拿到对应的jsonArray数据
       var convertDataToJson = jsonDecode(responseBody);
       //返回数据
-      print(convertDataToJson["adminId"]);
+      print(convertDataToJson);
 //      return convertDataToJson;
-      if (convertDataToJson["adminId"]!=null){
-        if (convertDataToJson["adminRoot"]=='1'){
+      if (convertDataToJson["adminInfo"]!=null&&convertDataToJson["result"]==200){
+        if (convertDataToJson["adminInfo"]["adminRoot"]=="1"){
           Navigator.of(context).pushAndRemoveUntil(
               new MaterialPageRoute(builder: (context) => new Index(convertDataToJson)
               ), (route) => route == null);
+        }else{
+          print(convertDataToJson["adminInfo"]["adminRoot"]);
         }
       }else{
-
+        print(convertDataToJson["message"]);
       }
     } else {
       print("error");

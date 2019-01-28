@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
 import '../global_config.dart';
 
-class IdeaPage extends StatefulWidget {
+class SendExpressPage extends StatefulWidget {
+
+  final Map<String, dynamic> todos;
+  SendExpressPage(this.todos);
 
   @override
-  _IdeaPageState createState() => new _IdeaPageState();
+  _SendExpressPageState createState() => new _SendExpressPageState(todos);
 
 }
 
-class _IdeaPageState extends State<IdeaPage> {
+class _SendExpressPageState extends State<SendExpressPage> {
+
+  final Map<String, dynamic> todos;
+  _SendExpressPageState(this.todos);
 
   @override
   Widget build(BuildContext context) {

@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
 import '../global_config.dart';
 
-class MarketPage extends StatefulWidget {
+class GetExpressPage extends StatefulWidget {
+
+  final Map<String, dynamic> todos;
+  GetExpressPage(this.todos);
 
   @override
-  _MarketPageState createState() => new _MarketPageState();
+  _GetExpressPageState createState() => new _GetExpressPageState(todos);
 
 }
 
-class _MarketPageState extends State<MarketPage> {
+class _GetExpressPageState extends State<GetExpressPage> {
+
+  final Map<String, dynamic> todos;
+  _GetExpressPageState(this.todos);
 
   @override
   Widget build(BuildContext context) {
