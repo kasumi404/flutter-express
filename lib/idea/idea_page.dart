@@ -175,13 +175,13 @@ class _NewsListState extends State<NewsList> {
         snapshot.data)['express'] : [''];
 
     switch (values.length) {
-      case 1: //没有获取到数据，则返回请求失败的原因
+      case 0: //没有获取到数据，则返回请求失败的原因
 
         return new Center(
 
           child: new Card(
 
-            child: new Text(jsonDecode(snapshot.data)['message']),
+            child: new Text("无数据"),
 
           ),
 
