@@ -60,8 +60,8 @@ class _IndexState extends State<Index> with TickerProviderStateMixin{
 
     _pageList = <StatefulWidget>[
       new HomePage(),
-      new SendExpressPage(todos["expressSend"]),
-      new GetExpressPage(todos["expressTo"]),
+      new SendExpressPage(todos["adminInfo"]),
+      new GetExpressPage(todos["adminInfo"]),
       new NoticePage(),
       new MyPage(todos["adminInfo"])
     ];
