@@ -28,16 +28,17 @@ class _SendExpressPageState extends State<SendExpressPage> with SingleTickerProv
   TabController _tabController;
   @override
 
-  final List<NewsTab> myTabs = <NewsTab>[
-    new NewsTab('全部',new NewsList(newsType: '全部')),    //拼音就是参数值
-    new NewsTab('已签收',new NewsList(newsType: '已签收')),    //拼音就是参数值
-    new NewsTab('已发货',new NewsList(newsType: '已发货')),    //拼音就是参数值
-    new NewsTab('未发货',new NewsList(newsType: '未发货')),    //拼音就是参数值
-    new NewsTab('申请中',new NewsList(newsType: '申请中')),    //拼音就是参数值
-  ];
+   List<NewsTab> myTabs ;
 
   void initState() {
     super.initState();
+    myTabs = <NewsTab>[
+    new NewsTab('全部',new NewsList(newsType: '全部',todos: todos)),    //拼音就是参数值
+    new NewsTab('已签收',new NewsList(newsType: '已签收',todos: todos)),    //拼音就是参数值
+    new NewsTab('已发货',new NewsList(newsType: '已发货',todos: todos)),    //拼音就是参数值
+    new NewsTab('未发货',new NewsList(newsType: '未发货',todos: todos)),    //拼音就是参数值
+    new NewsTab('申请中',new NewsList(newsType: '申请中',todos: todos)),    //拼音就是参数值
+    ];
     _tabController = new TabController(vsync: this, length: myTabs.length);
   }
 
@@ -77,16 +78,18 @@ class _SendExpressPageState extends State<SendExpressPage> with SingleTickerProv
 //新闻列表
 class NewsList extends StatefulWidget{
   final String newsType;    //新闻类型
+  final Map<String, dynamic> todos;
   @override
-  NewsList({Key key, this.newsType} ):super(key:key);
+  NewsList({Key key, this.newsType,this.todos} ):super(key:key);
 
-  _NewsListState createState() => new _NewsListState();
+  _NewsListState createState() => new _NewsListState(todos);
 
 
 }
 class _NewsListState extends State<NewsList> {
 
-
+  final Map<String, dynamic> todos;
+  _NewsListState(this.todos);
   final String _url = 'http://127.0.0.1:8080/express/getExpressByAdminId?';
 //  final String _url = 'http://v.juhe.cn/toutiao/index?';
 
@@ -97,7 +100,7 @@ class _NewsListState extends State<NewsList> {
   Future<String> get(String category) async {
     var httpClient = new HttpClient();
 
-    var request = await httpClient.getUrl(Uri.parse('http://192.168.1.105:8080/express/getExpressByAdminId?adminId=1&expressType='+category+'&flag=1'));
+    var request = await httpClient.getUrl(Uri.parse('http://192.168.1.105:8080/express/getExpressByAdminId?adminId='+todos["adminId"].toString()+'&expressType='+category+'&flag=1'));
 
 //    var request = await httpClient.getUrl(Uri.parse('${_url}type=$category&key=3a86f36bd3ecac8a51135ded5eebe862'));
     var response = await request.close();
