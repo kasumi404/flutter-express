@@ -4,28 +4,30 @@ import 'dart:io';
 
 import 'package:zhihu/api/ip.dart';
 
-class EditPage extends StatefulWidget {
+class ComplaintPage extends StatefulWidget {
 
   Map<String, dynamic> todos;
-  EditPage(this.todos);
+  ComplaintPage(this.todos);
 
   @override
-  _EditPageState createState() => new _EditPageState(todos);
+  _ComplaintPageState createState() => new _ComplaintPageState(todos);
 
 }
 
-class _EditPageState extends State<EditPage> {
+class _ComplaintPageState extends State<ComplaintPage> {
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   Map<String, dynamic> todos;
-  _EditPageState(this.todos);
+
+  String complaintText;
+  _ComplaintPageState(this.todos);
 
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
         home: new Scaffold(
           appBar: new AppBar(
-            title:  new Text('个人信息'),
+            title:  new Text('我要申述'),
           ),
           body:new Container(
           margin: EdgeInsets.all(10.0),
@@ -34,10 +36,7 @@ class _EditPageState extends State<EditPage> {
             key: _formKey,
             child: ListView(
               children: <Widget>[
-                _buildNameText(),
                 _buildCellText(),
-                _buildIDCardText(),
-                _buildPlaceText(),
                 Container(
                   padding: EdgeInsets.all(10.0),
                   child:
@@ -68,18 +67,14 @@ class _EditPageState extends State<EditPage> {
   }
   Widget _buildCellText() {
     return TextFormField(
-      controller:new TextEditingController.fromValue(new TextEditingValue(text: todos["adminCell"])),
-      decoration: InputDecoration(labelText: '电话号',hintText: '请输入电话号',),
+//      decoration: InputDecoration(labelText: '申述内容',hintText: '在这里填写您要提交的申述',),
       validator: (String value) {
         //删除首尾空格^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$
-        RegExp exp = new RegExp('^((13[0-9])|(15[^4])|(166)|(17[0-8])|(18[0-9])|(19[8-9])|(147,145))\\d{8}\$');
-        if (value.isEmpty || !exp.hasMatch(value)) {
-          return '请输入正确电话号';
-        }
       },
+      maxLines: 6,
       onSaved: (String value) {
 
-        todos["adminCell"] = value;
+        complaintText = value;
 
       },
     );
@@ -119,12 +114,11 @@ class _EditPageState extends State<EditPage> {
       },
     );
   }
-  void edit(Map todos)async{
+  void complaint(Map todos)async{
     var responseBody;
-    var url = "http://"+ip()+":8080/admin/edit?";
-    todos.forEach((k, v)=> url=(url+k+"="+v.toString()+"&"));
+    var url = "http://"+ip()+":8080/complaint/insertComplaint?"+"adminId="+todos['adminId'].toString()+"&context="+complaintText;
     url.substring(0,url.length-1);
-    print(todos);
+    print(url);
     var httpClient = new HttpClient();
     var request = await httpClient.postUrl(Uri.parse(url));
 
@@ -144,6 +138,6 @@ class _EditPageState extends State<EditPage> {
   void _submitValues(){
     _formKey.currentState.save();
     _formKey.currentState.validate();
-    edit(todos);
+    complaint(todos);
   }
 }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../index/index.dart';
 import 'dart:convert';
 import 'dart:io';
-
+import '../api/ip.dart';
 class Login extends StatefulWidget {
 
   @override
@@ -82,7 +82,7 @@ class _LoginState extends State<Login> {
   }
   void login(String username,String password) async {
     var responseBody;
-    var url = "http://192.168.1.105:8080/admin/login?username="+username+"&password="+password;
+    var url = "http://"+ip()+":8080/admin/login?username="+username+"&password="+password;
     print(url);
     var httpClient = new HttpClient();
     var request = await httpClient.postUrl(Uri.parse(url));

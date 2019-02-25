@@ -3,6 +3,12 @@ import '../global_config.dart';
 import '../home/search_page.dart';
 import '../global_config.dart';
 import './components/edit.dart';
+import './components/complaint.dart';
+import './components/ban.dart';
+import './components/aboutMe.dart';
+
+import '../idea/idea_page.dart';
+import '../market/market_page.dart';
 
 class MyPage extends StatefulWidget {
 
@@ -65,7 +71,7 @@ class _MyPageState extends State<MyPage> {
                     ),
                     title: new Container(
                       margin: const EdgeInsets.only(bottom: 2.0),
-                      child: new Text(todos["adminName"]),
+                      child: new Text(todos["adminInfo"]["adminName"]),
                     ),
                     subtitle: new Container(
                       margin: const EdgeInsets.only(top: 2.0),
@@ -82,13 +88,19 @@ class _MyPageState extends State<MyPage> {
                 new Container(
                   width: (MediaQuery.of(context).size.width - 6.0) / 4,
                   child: new FlatButton (
-                      onPressed: (){},
+                      onPressed:()
+                      {
+                      Navigator.push(
+                      context,
+                      new MaterialPageRoute(builder: (context) => new SendExpressPage(todos["adminInfo"])),
+                      );
+                      },
                       child: new Container(
                         height: 50.0,
                         child: new Column(
                           children: <Widget>[
                             new Container(
-                              child: new Text((todos["adminSended"]+todos["adminSendno"]+todos["adminSendok"]).toString(),
+                              child: new Text((todos["adminInfo"]["adminSended"]+todos["adminInfo"]["adminSendno"]+todos["adminInfo"]["adminSendok"]).toString(),
                                 style: new TextStyle(fontSize: 16.0, color: GlobalConfig.fontColor),),
                             ),
                             new Container(
@@ -111,13 +123,19 @@ class _MyPageState extends State<MyPage> {
                 new Container(
                   width: (MediaQuery.of(context).size.width - 6.0) / 4,
                   child: new FlatButton(
-                      onPressed: (){},
+                      onPressed:()
+                      {
+                        Navigator.push(
+                          context,
+                          new MaterialPageRoute(builder: (context) => new SendExpressPage(todos["adminInfo"])),
+                        );
+                      },
                       child: new Container(
                         height: 50.0,
                         child: new Column(
                           children: <Widget>[
                             new Container(
-                              child: new Text(todos["adminSended"].toString(), style: new TextStyle(fontSize: 16.0, color: GlobalConfig.fontColor),),
+                              child: new Text(todos["adminInfo"]["adminSended"].toString(), style: new TextStyle(fontSize: 16.0, color: GlobalConfig.fontColor),),
                             ),
                             new Container(
                               child: new Text("已发货", style: new TextStyle(fontSize: 12.0, color: GlobalConfig.fontColor),),
@@ -139,13 +157,19 @@ class _MyPageState extends State<MyPage> {
                 new Container(
                   width: (MediaQuery.of(context).size.width - 6.0) / 4,
                   child: new FlatButton(
-                      onPressed: (){},
+                      onPressed:()
+                      {
+                        Navigator.push(
+                          context,
+                          new MaterialPageRoute(builder: (context) => new SendExpressPage(todos["adminInfo"])),
+                        );
+                      },
                       child: new Container(
                         height: 50.0,
                         child: new Column(
                           children: <Widget>[
                             new Container(
-                              child: new Text(todos["adminSendno"].toString(), style: new TextStyle(fontSize: 16.0, color: GlobalConfig.fontColor),),
+                              child: new Text(todos["adminInfo"]["adminSendno"].toString(), style: new TextStyle(fontSize: 16.0, color: GlobalConfig.fontColor),),
                             ),
                             new Container(
                               child: new Text("未发货", style: new TextStyle(fontSize: 12.0, color: GlobalConfig.fontColor),),
@@ -167,13 +191,19 @@ class _MyPageState extends State<MyPage> {
                 new Container(
                     width: (MediaQuery.of(context).size.width - 6.0) / 4,
                     child: new FlatButton(
-                        onPressed: (){},
+                        onPressed:()
+                        {
+                          Navigator.push(
+                            context,
+                            new MaterialPageRoute(builder: (context) => new SendExpressPage(todos["adminInfo"])),
+                          );
+                        },
                         child: new Container(
                           height: 50.0,
                           child: new Column(
                             children: <Widget>[
                               new Container(
-                                child: new Text(todos["adminSendok"].toString(), style: new TextStyle(fontSize: 16.0, color: GlobalConfig.fontColor),),
+                                child: new Text(todos["adminInfo"]["adminSendok"].toString(), style: new TextStyle(fontSize: 16.0, color: GlobalConfig.fontColor),),
                               ),
                               new Container(
                                 child: new Text("已签收", style: new TextStyle(fontSize: 12.0, color: GlobalConfig.fontColor),),
@@ -193,13 +223,19 @@ class _MyPageState extends State<MyPage> {
                 new Container(
                   width: (MediaQuery.of(context).size.width - 6.0) / 4,
                   child: new FlatButton (
-                      onPressed: (){},
+                      onPressed:()
+                      {
+                        Navigator.push(
+                          context,
+                          new MaterialPageRoute(builder: (context) => new GetExpressPage(todos["adminInfo"])),
+                        );
+                      },
                       child: new Container(
                         height: 50.0,
                         child: new Column(
                           children: <Widget>[
                             new Container(
-                              child: new Text((todos["adminGeted"]+todos["adminGetno"]+todos["adminGetok"]).toString(),
+                              child: new Text((todos["adminInfo"]["adminGeted"]+todos["adminInfo"]["adminGetno"]+todos["adminInfo"]["adminGetok"]).toString(),
                                   style: new TextStyle(fontSize: 16.0, color: GlobalConfig.fontColor),),
                             ),
                             new Container(
@@ -222,13 +258,19 @@ class _MyPageState extends State<MyPage> {
                 new Container(
                   width: (MediaQuery.of(context).size.width - 6.0) / 4,
                   child: new FlatButton(
-                      onPressed: (){},
+                      onPressed:()
+                      {
+                        Navigator.push(
+                          context,
+                          new MaterialPageRoute(builder: (context) => new GetExpressPage(todos["adminInfo"])),
+                        );
+                      },
                       child: new Container(
                         height: 50.0,
                         child: new Column(
                           children: <Widget>[
                             new Container(
-                              child: new Text(todos["adminGeted"].toString(), style: new TextStyle(fontSize: 16.0, color: GlobalConfig.fontColor),),
+                              child: new Text(todos["adminInfo"]["adminGeted"].toString(), style: new TextStyle(fontSize: 16.0, color: GlobalConfig.fontColor),),
                             ),
                             new Container(
                               child: new Text("已发货", style: new TextStyle(fontSize: 12.0, color: GlobalConfig.fontColor),),
@@ -250,13 +292,19 @@ class _MyPageState extends State<MyPage> {
                 new Container(
                   width: (MediaQuery.of(context).size.width - 6.0) / 4,
                   child: new FlatButton(
-                      onPressed: (){},
+                      onPressed:()
+                      {
+                        Navigator.push(
+                          context,
+                          new MaterialPageRoute(builder: (context) => new GetExpressPage(todos["adminInfo"])),
+                        );
+                      },
                       child: new Container(
                         height: 50.0,
                         child: new Column(
                           children: <Widget>[
                             new Container(
-                              child: new Text(todos["adminGetno"].toString(), style: new TextStyle(fontSize: 16.0, color: GlobalConfig.fontColor),),
+                              child: new Text(todos["adminInfo"]["adminGetno"].toString(), style: new TextStyle(fontSize: 16.0, color: GlobalConfig.fontColor),),
                             ),
                             new Container(
                               child: new Text("未发货", style: new TextStyle(fontSize: 12.0, color: GlobalConfig.fontColor),),
@@ -278,13 +326,19 @@ class _MyPageState extends State<MyPage> {
                 new Container(
                     width: (MediaQuery.of(context).size.width - 6.0) / 4,
                     child: new FlatButton(
-                        onPressed: (){},
+                        onPressed:()
+                        {
+                          Navigator.push(
+                            context,
+                            new MaterialPageRoute(builder: (context) => new GetExpressPage(todos["adminInfo"])),
+                          );
+                        },
                         child: new Container(
                           height: 50.0,
                           child: new Column(
                             children: <Widget>[
                               new Container(
-                                child: new Text(todos["adminGetok"].toString(), style: new TextStyle(fontSize: 16.0, color: GlobalConfig.fontColor),),
+                                child: new Text(todos["adminInfo"]["adminGetok"].toString(), style: new TextStyle(fontSize: 16.0, color: GlobalConfig.fontColor),),
                               ),
                               new Container(
                                 child: new Text("已签收", style: new TextStyle(fontSize: 12.0, color: GlobalConfig.fontColor),),
@@ -316,7 +370,7 @@ class _MyPageState extends State<MyPage> {
                 new Container(
                   width: MediaQuery.of(context).size.width / 4,
                   child: new FlatButton(
-                      onPressed: (){},
+                      onPressed: aboutMe,
                       child: new Container(
                         child: new Column(
                           children: <Widget>[
@@ -329,7 +383,7 @@ class _MyPageState extends State<MyPage> {
                               ),
                             ),
                             new Container(
-                              child: new Text("协议客户", style: new TextStyle(color: GlobalConfig.fontColor, fontSize: 14.0),),
+                              child: new Text("关于我们", style: new TextStyle(color: GlobalConfig.fontColor, fontSize: 14.0),),
                             )
                           ],
                         ),
@@ -362,7 +416,7 @@ class _MyPageState extends State<MyPage> {
                 new Container(
                   width: MediaQuery.of(context).size.width / 4,
                   child: new FlatButton(
-                      onPressed: (){},
+                      onPressed: complaint,
                       child: new Container(
                         child: new Column(
                           children: <Widget>[
@@ -416,7 +470,7 @@ class _MyPageState extends State<MyPage> {
                 new Container(
                   width: MediaQuery.of(context).size.width / 4,
                   child: new FlatButton(
-                      onPressed: (){},
+                      onPressed: ban,
                       child: new Container(
                         child: new Column(
                           children: <Widget>[
@@ -991,7 +1045,25 @@ class _MyPageState extends State<MyPage> {
   void edit(){
     Navigator.push(
       context,
-      new MaterialPageRoute(builder: (context) => new EditPage(todos)),
+      new MaterialPageRoute(builder: (context) => new EditPage(todos["adminInfo"])),
+    );
+  }
+  void complaint(){
+    Navigator.push(
+      context,
+      new MaterialPageRoute(builder: (context) => new ComplaintPage(todos["adminInfo"])),
+    );
+  }
+  void ban(){
+    Navigator.push(
+      context,
+      new MaterialPageRoute(builder: (context) => new BanPage()),
+    );
+  }
+  void aboutMe(){
+    Navigator.push(
+      context,
+      new MaterialPageRoute(builder: (context) => new AboutMePage()),
     );
   }
 }

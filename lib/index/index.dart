@@ -29,11 +29,6 @@ class _IndexState extends State<Index> with TickerProviderStateMixin{
     super.initState();
     _navigationViews = <NavigationIconView>[
       new NavigationIconView(
-        icon: new Icon(Icons.assignment),
-        title: new Text("首页"),
-        vsync: this,
-      ),
-      new NavigationIconView(
         icon: new Icon(Icons.all_inclusive),
         title: new Text("寄快递"),
         vsync: this,
@@ -59,11 +54,10 @@ class _IndexState extends State<Index> with TickerProviderStateMixin{
     }
 
     _pageList = <StatefulWidget>[
-      new HomePage(),
       new SendExpressPage(todos["adminInfo"]),
       new GetExpressPage(todos["adminInfo"]),
       new NoticePage(),
-      new MyPage(todos["adminInfo"])
+      new MyPage(todos)
     ];
     _currentPage = _pageList[_currentIndex];
   }

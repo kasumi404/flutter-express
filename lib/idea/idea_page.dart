@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:zhihu/api/ip.dart';
 import '../global_config.dart';
 import 'dart:convert';
 import 'dart:async';
@@ -100,7 +101,7 @@ class _NewsListState extends State<NewsList> {
   Future<String> get(String category) async {
     var httpClient = new HttpClient();
 
-    var request = await httpClient.getUrl(Uri.parse('http://192.168.1.105:8080/express/getExpressByAdminId?adminId='+todos["adminId"].toString()+'&expressType='+category+'&flag=1'));
+    var request = await httpClient.getUrl(Uri.parse('http://'+ip()+':8080/express/getExpressByAdminId?adminId='+todos["adminId"].toString()+'&expressType='+category+'&flag=1'));
 
 //    var request = await httpClient.getUrl(Uri.parse('${_url}type=$category&key=3a86f36bd3ecac8a51135ded5eebe862'));
     var response = await request.close();

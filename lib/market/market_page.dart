@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:zhihu/api/ip.dart';
 import '../global_config.dart';
 import 'dart:convert';
 import 'dart:async';
@@ -88,7 +89,6 @@ class _NewsListState extends State<NewsList> {
 
   final Map<String, dynamic> todos;
   _NewsListState(this.todos);
-  final String _url = 'http://127.0.0.1:8080/express/getExpressByAdminId?';
 //  final String _url = 'http://v.juhe.cn/toutiao/index?';
 
   List data;
@@ -97,8 +97,9 @@ class _NewsListState extends State<NewsList> {
   //HTTP请求的函数返回值为异步控件Future
   Future<String> get(String category) async {
     var httpClient = new HttpClient();
-
-    var request = await httpClient.getUrl(Uri.parse('http://192.168.1.105:8080/express/getExpressByAdminId?adminId='+todos["adminId"].toString()+'&expressType='+category+'&flag=2'));
+    print(todos["adminId"].toString());
+    print('http://'+ip()+':8080/express/getExpressByAdminId?adminId='+todos["adminId"].toString()+'&expressType='+category+'&flag=2');
+    var request = await httpClient.getUrl(Uri.parse('http://'+ip()+':8080/express/getExpressByAdminId?adminId='+todos["adminId"].toString()+'&expressType='+category+'&flag=2'));
 
 //    var request = await httpClient.getUrl(Uri.parse('${_url}type=$category&key=3a86f36bd3ecac8a51135ded5eebe862'));
     var response = await request.close();
