@@ -89,6 +89,5 @@ class _AboutMePageState extends State<AboutMePage> {
     } else {
       print("error");
     }
-  }
 // ignore: expected_executable
 }

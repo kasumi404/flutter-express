@@ -167,6 +167,5 @@ class _BanPageState extends State<BanPage> {
     } else {
       print("error");
     }
-  }
 // ignore: expected_executable
 }
