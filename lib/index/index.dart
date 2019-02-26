@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:zhihu/add/addExpress.dart';
 import 'navigation_icon_view.dart';
 import '../global_config.dart';
 import '../home/home_page.dart';
@@ -39,6 +40,11 @@ class _IndexState extends State<Index> with TickerProviderStateMixin{
         vsync: this,
       ),
       new NavigationIconView(
+        icon: new Icon(Icons.add_box),
+        title: new Text("我要寄件"),
+        vsync: this,
+      ),
+      new NavigationIconView(
         icon: new Icon(Icons.add_alert),
         title: new Text("通知"),
         vsync: this,
@@ -56,7 +62,8 @@ class _IndexState extends State<Index> with TickerProviderStateMixin{
     _pageList = <StatefulWidget>[
       new SendExpressPage(todos["adminInfo"]),
       new GetExpressPage(todos["adminInfo"]),
-      new NoticePage(),
+      new AddExpressPage(todos["adminInfo"]),
+      new NoticePage(todos["adminInfo"]),
       new MyPage(todos)
     ];
     _currentPage = _pageList[_currentIndex];

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:zhihu/api/ip.dart';
+import 'package:zhihu/global_config.dart';
 
 class ComplaintPage extends StatefulWidget {
 
@@ -27,6 +28,7 @@ class _ComplaintPageState extends State<ComplaintPage> {
     return new MaterialApp(
         home: new Scaffold(
           appBar: new AppBar(
+            backgroundColor: Colors.grey,
             title:  new Text('我要申述'),
           ),
           body:new Container(
@@ -47,6 +49,7 @@ class _ComplaintPageState extends State<ComplaintPage> {
           ),
         ),
       ),
+        theme: GlobalConfig.themeData
     );
   }
   Widget _buildNameText() {
@@ -130,7 +133,65 @@ class _ComplaintPageState extends State<ComplaintPage> {
       //解析json，拿到对应的jsonArray数据
       var convertDataToJson = jsonDecode(responseBody);
       //返回数据
-      print(convertDataToJson);
+      print(convertDataToJson);if (convertDataToJson["result"] == 200) {
+        showDialog<Null>(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) {
+            return new AlertDialog(
+              backgroundColor: GlobalConfig.cardBackgroundColor,
+              title: new Text('提示',style: new TextStyle(color: GlobalConfig.fontColor, fontSize: 14.0)),
+              content: new SingleChildScrollView(
+                child: new ListBody(
+                  children: <Widget>[
+                    new Text('提交成功',style: new TextStyle(color: GlobalConfig.fontColor, fontSize: 14.0)),
+                  ],
+                ),
+              ),
+              actions: <Widget>[
+                new FlatButton(
+                  child: new Text('确定',style: new TextStyle(color: GlobalConfig.fontColor, fontSize: 14.0)),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          },
+        ).then((val) {
+          print(val);
+        });
+
+      } else {
+        showDialog<Null>(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) {
+            return new AlertDialog(
+              backgroundColor: GlobalConfig.cardBackgroundColor,
+              title: new Text('提示',style: new TextStyle(color: GlobalConfig.fontColor, fontSize: 14.0)),
+              content: new SingleChildScrollView(
+                child: new ListBody(
+                  children: <Widget>[
+                    new Text('提交失败'+convertDataToJson["message"],style: new TextStyle(color: GlobalConfig.fontColor, fontSize: 14.0)),
+                  ],
+                ),
+              ),
+              actions: <Widget>[
+                new FlatButton(
+                  child: new Text('返回',style: new TextStyle(color: GlobalConfig.fontColor, fontSize: 14.0)),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          },
+        ).then((val) {
+          print(val);
+        });
+        print(convertDataToJson["message"]);
+      }
     } else {
       print("error");
     }

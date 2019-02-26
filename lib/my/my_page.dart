@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:zhihu/Login/Login.dart';
+import 'package:zhihu/my/components/changePassword.dart';
 import '../global_config.dart';
 import '../home/search_page.dart';
 import '../global_config.dart';
@@ -393,7 +396,7 @@ class _MyPageState extends State<MyPage> {
                 new Container(
                   width: MediaQuery.of(context).size.width / 4,
                   child: new FlatButton(
-                      onPressed: (){},
+                      onPressed: changePassword,
                       child: new Container(
                         child: new Column(
                           children: <Widget>[
@@ -401,12 +404,12 @@ class _MyPageState extends State<MyPage> {
                               margin: const EdgeInsets.only(bottom: 6.0),
                               child: new CircleAvatar(
                                 radius: 20.0,
-                                child: new Icon(Icons.flash_on, color: Colors.white),
+                                child: new Icon(Icons.brightness_high, color: Colors.white),
                                 backgroundColor: Colors.blue,
                               ),
                             ),
                             new Container(
-                              child: new Text("扫码", style: new TextStyle(color: GlobalConfig.fontColor, fontSize: 14.0)),
+                              child: new Text("修改密码", style: new TextStyle(color: GlobalConfig.fontColor, fontSize: 14.0)),
                             )
                           ],
                         ),
@@ -493,7 +496,26 @@ class _MyPageState extends State<MyPage> {
                 new Container(
                   width: MediaQuery.of(context).size.width / 4,
                   child: new FlatButton(
-                      onPressed: (){},
+                      onPressed: (){
+                        setState((){
+                          if (GlobalConfig.dark == true) {
+                            GlobalConfig.themeData = new ThemeData(
+                              primaryColor: Colors.white,
+                              scaffoldBackgroundColor: new Color(0xFFEBEBEB),
+                            );
+                            GlobalConfig.searchBackgroundColor = new Color(0xFFEBEBEB);
+                            GlobalConfig.cardBackgroundColor = Colors.white;
+                            GlobalConfig.fontColor = Colors.black54;
+                            GlobalConfig.dark = false;
+                          } else {
+                            GlobalConfig.themeData = new ThemeData.dark();
+                            GlobalConfig.searchBackgroundColor = Colors.white10;
+                            GlobalConfig.cardBackgroundColor = new Color(0xFF222222);
+                            GlobalConfig.fontColor = Colors.white30;
+                            GlobalConfig.dark = true;
+                          }
+                        });
+                      },
                       child: new Container(
                         child: new Column(
                           children: <Widget>[
@@ -501,12 +523,12 @@ class _MyPageState extends State<MyPage> {
                               margin: const EdgeInsets.only(bottom: 6.0),
                               child: new CircleAvatar(
                                 radius: 20.0,
-                                child: new Icon(Icons.radio, color: Colors.white),
-                                backgroundColor: Colors.blue,
+                                child: new Icon(GlobalConfig.dark == true ? Icons.wb_sunny : Icons.brightness_2, color: Colors.white),
+                                backgroundColor: new Color(0xFFB86A0D),
                               ),
                             ),
                             new Container(
-                              child: new Text("寄件历史", style: new TextStyle(color: GlobalConfig.fontColor, fontSize: 14.0)),
+                              child: new Text(GlobalConfig.dark == true ? "日间模式" : "夜间模式", style: new TextStyle(color: GlobalConfig.fontColor, fontSize: 14.0)),
                             )
                           ],
                         ),
@@ -516,7 +538,9 @@ class _MyPageState extends State<MyPage> {
                 new Container(
                   width: MediaQuery.of(context).size.width / 4,
                   child: new FlatButton(
-                      onPressed: (){},
+                      onPressed: (){
+                        Clipboard.setData(new ClipboardData(text: "梁梓康的毕业设计：基于安卓的快递服务系统设计与实现"));
+                      },
                       child: new Container(
                         child: new Column(
                           children: <Widget>[
@@ -1019,6 +1043,28 @@ class _MyPageState extends State<MyPage> {
     );
   }
 
+  Widget outLogin() {
+      return new Container(
+          margin: const EdgeInsets.only(top: 5.0, bottom: 6.0),
+          padding: const EdgeInsets.only(top: 12.0, bottom: 8.0),
+          child: new Column(
+              children: <Widget>[
+                  new Container(
+                      width: MediaQuery.of(context).size.width * 3 / 4,
+                      margin: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 16.0),
+                      decoration: new BoxDecoration(
+                          color: GlobalConfig.dark == true ? Colors.white10 :GlobalConfig.cardBackgroundColor,
+                          borderRadius: new BorderRadius.all(new Radius.circular(6.0))
+                      ),
+                      child: new FlatButton(
+                          onPressed: out,
+                          child: new Text("退出登录", style: new TextStyle(color: GlobalConfig.fontColor, fontSize: 14.0)),
+                      ),
+                  )
+              ]
+          )
+      );
+  }
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
@@ -1033,7 +1079,7 @@ class _MyPageState extends State<MyPage> {
               children: <Widget>[
                 myInfoCard(),
                 myServiceCard(),
-                settingCard(),
+                outLogin(),
               ],
             ),
           ),
@@ -1064,6 +1110,18 @@ class _MyPageState extends State<MyPage> {
     Navigator.push(
       context,
       new MaterialPageRoute(builder: (context) => new AboutMePage()),
+    );
+  }
+  void changePassword(){
+    Navigator.push(
+      context,
+      new MaterialPageRoute(builder: (context) => new ChangePasswordPage(todos['adminInfo'])),
+    );
+  }
+  void out(){
+    Navigator.push(
+      context,
+      new MaterialPageRoute(builder: (context) => new Login()),
     );
   }
 }

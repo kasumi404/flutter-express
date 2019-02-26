@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:zhihu/global_config.dart';
 import '../index/index.dart';
+import '../register/register.dart';
 import 'dart:convert';
 import 'dart:io';
 import '../api/ip.dart';
@@ -63,7 +65,7 @@ class _LoginState extends State<Login> {
               padding: new EdgeInsets.fromLTRB(leftRightPadding,
                   topBottomPadding, leftRightPadding, topBottomPadding),
               child: new Card(
-                color: Colors.green,
+                color: Colors.blueAccent,
                 elevation: 6.0,
                 child: new FlatButton(
                     onPressed: pushLogin,
@@ -73,6 +75,23 @@ class _LoginState extends State<Login> {
                         '马上登录',
                         style:
                         new TextStyle(color: Colors.white, fontSize: 16.0),
+                      ),
+                    )),
+              ),
+            ),
+            new Padding(
+              padding: new EdgeInsets.fromLTRB(
+                  leftRightPadding, 30.0, leftRightPadding, topBottomPadding),
+              child: new Card(
+                color: Colors.green,
+                elevation: 6.0,
+                child: new FlatButton(
+                    onPressed: toRegister,
+                    child: new Padding(
+                      padding: new EdgeInsets.all(10.0),
+                      child: new Text(
+                        '马上注册',
+                        style: new TextStyle(color: Colors.blue, fontSize: 16.0),
                       ),
                     )),
               ),
@@ -106,11 +125,44 @@ class _LoginState extends State<Login> {
           print(convertDataToJson["adminInfo"]["adminRoot"]);
         }
       }else{
-        print(convertDataToJson["message"]);
+        showDialog<Null>(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) {
+            return new AlertDialog(
+              backgroundColor: GlobalConfig.cardBackgroundColor,
+              title: new Text('提示',style: new TextStyle(color: GlobalConfig.fontColor, fontSize: 14.0)),
+              content: new SingleChildScrollView(
+                child: new ListBody(
+                  children: <Widget>[
+                    new Text('登陆失败'+convertDataToJson["message"],style: new TextStyle(color: GlobalConfig.fontColor, fontSize: 14.0)),
+                  ],
+                ),
+              ),
+              actions: <Widget>[
+                new FlatButton(
+                  child: new Text('返回',style: new TextStyle(color: GlobalConfig.fontColor, fontSize: 14.0)),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          },
+        ).then((val) {
+          print(val);
+        });
       }
     } else {
       print("error");
     }
+  }
+
+  void toRegister(){
+    Navigator.of(context).push(
+        new MaterialPageRoute(
+            builder: (context) => new Register()
+        ));
   }
 
   void pushLogin(){

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:zhihu/api/ip.dart';
+import 'package:zhihu/global_config.dart';
 
 class AboutMePage extends StatefulWidget {
 
@@ -21,6 +22,7 @@ class _AboutMePageState extends State<AboutMePage> {
     return new MaterialApp(
         home: new Scaffold(
           appBar: new AppBar(
+            backgroundColor: Colors.grey,
             title:  new Text('关于我们'),
           ),
           body:new Container(
@@ -31,21 +33,21 @@ class _AboutMePageState extends State<AboutMePage> {
             child: ListView(
               children: <Widget>[
                 new Text(
-                  '姓名：梁子康',
+                  '开发人：帅逼梁梓康',
                   textAlign: TextAlign.center,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(fontWeight: FontWeight.bold,fontSize: 25.0),
                   maxLines: 2,
                 ),
                 new Text(
-                  '学号：123',
+                  '学号：1504413608',
                   textAlign: TextAlign.center,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(fontWeight: FontWeight.bold,fontSize: 25.0),
                   maxLines: 2,
                 ),
                 new Text(
-                  '开发题目：快递',
+                  '开发题目：基于安卓的快递服务系统设计与实现',
                   textAlign: TextAlign.center,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(fontWeight: FontWeight.bold,fontSize: 25.0),
@@ -56,6 +58,7 @@ class _AboutMePageState extends State<AboutMePage> {
           ),
         ),
       ),
+        theme: GlobalConfig.themeData
     );
   }
   Widget _buildNameText() {

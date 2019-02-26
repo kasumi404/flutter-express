@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:zhihu/api/ip.dart';
+import 'package:zhihu/global_config.dart';
 
 class BanPage extends StatefulWidget {
 
@@ -21,6 +22,7 @@ class _BanPageState extends State<BanPage> {
     return new MaterialApp(
         home: new Scaffold(
           appBar: new AppBar(
+            backgroundColor: Colors.grey,
             title:  new Text('禁寄物品'),
           ),
           body:new Container(
@@ -134,6 +136,7 @@ class _BanPageState extends State<BanPage> {
           ),
         ),
       ),
+        theme: GlobalConfig.themeData
     );
   }
   Widget _buildNameText() {

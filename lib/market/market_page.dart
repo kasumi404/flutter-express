@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:zhihu/api/ip.dart';
+import 'package:zhihu/market/components/expressInfo.dart';
 import '../global_config.dart';
 import 'dart:convert';
 import 'dart:async';
@@ -52,7 +53,6 @@ class _GetExpressPageState extends State<GetExpressPage> with SingleTickerProvid
     return new MaterialApp(
         home: new Scaffold(
           appBar: new AppBar(
-            backgroundColor: Colors.grey,
             title: new TabBar(
               controller: _tabController,
               tabs: myTabs.map((NewsTab item){      //NewsTab可以不用声明
@@ -245,9 +245,48 @@ class _NewsListState extends State<NewsList> {
                   ),
                 ],
               )),
+          new FlatButton(
+              onPressed: (){openCard(newsInfo['expressCode']);},
+              color: Colors.black12,
+              child: new Padding(
+                padding: new EdgeInsets.all(10.0),
+                child: new Text(
+                  '详情',
+                  style:
+                  new TextStyle(color: Colors.white, fontSize: 16.0),
+                ),
+              )),
         ],
       ),
     );
   }
+  void openCard(String code) async{
+    var responseBody;
+    var url = "http://"+ip()+":8080/express/getExpressByExpressCode?expressCode="+code;
+    print(url);
+    var httpClient = new HttpClient();
+    var request = await httpClient.getUrl(Uri.parse(url));
 
+    var response = await request.close();
+    //判断是否请求成功
+    if (response.statusCode == 200) {
+      //拿到请求的数据
+      responseBody = await response.transform(utf8.decoder).join();
+      //解析json，拿到对应的jsonArray数据
+      var convertDataToJson = jsonDecode(responseBody);
+      //返回数据
+      print(convertDataToJson);
+//      return convertDataToJson;
+      if (convertDataToJson["express"]!=null&&convertDataToJson["result"]==200){
+        Navigator.push(
+          context,
+          new MaterialPageRoute(builder: (context) => new ExpressInfoPage(convertDataToJson["express"])),
+        );
+      }else{
+        print(convertDataToJson["message"]);
+      }
+    } else {
+      print("error");
+    }
+  }
 }

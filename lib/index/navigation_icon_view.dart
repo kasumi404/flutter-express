@@ -5,7 +5,7 @@ class NavigationIconView {
   NavigationIconView({
     Widget icon,
     Widget title,
-    TickerProvider vsync
+    TickerProvider vsync,
   }):
     item = new BottomNavigationBarItem(
       icon: icon,
